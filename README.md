@@ -17,10 +17,10 @@ a plain-text weekly insight report so you can spot what's actually slowing you d
 ## MVP Scope
 
 - [x] Project scaffold (folders, modules, entry point)
-- [ ] Log a friction event interactively (category, description, severity, timestamp)
-- [ ] Save events as JSON lines in `data/logs/`
-- [ ] Detect simple recurring patterns (same category / keyword frequency)
-- [ ] Generate a weekly plain-text report saved to `reports/weekly/`
+- [x] Log a friction event interactively (category, description, severity, timestamp)
+- [x] Save events as JSON lines in `data/logs/`
+- [x] Detect simple recurring patterns (same category / keyword frequency)
+- [x] Generate a weekly plain-text report saved to `reports/weekly/`
 
 ---
 
