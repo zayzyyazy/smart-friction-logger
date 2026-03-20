@@ -30,6 +30,24 @@ def save_event(event: dict) -> str:
     return LOG_FILE
 
 
+REPORTS_DIR = os.path.join("reports", "weekly")
+
+
+def save_report(content: str, date_str: str) -> str:
+    """
+    Save a markdown report string to reports/weekly/weekly_report_<date>.md.
+    Creates the directory if it doesn't exist.
+    Returns the path of the saved file.
+    """
+    os.makedirs(REPORTS_DIR, exist_ok=True)
+    file_path = os.path.join(REPORTS_DIR, f"weekly_report_{date_str}.md")
+
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    return file_path
+
+
 def load_events() -> list:
     """
     Read all friction events from the JSONL log file.

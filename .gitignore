@@ -2,3 +2,6 @@
 __pycache__/
 .DS_Store
 venv/
+# Ignore personal data and generated reports
+data/logs/*.jsonl
+reports/weekly/*.md
