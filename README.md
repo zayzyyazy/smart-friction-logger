@@ -22,6 +22,13 @@ I kept running into the same annoyances at the terminal and losing track of what
 
 > Logs and generated reports are kept local and are excluded from Git via `.gitignore`.
 
+- [x] Project scaffold (folders, modules, entry point)
+- [x] Log a friction event interactively (category, description, severity, timestamp)
+- [x] Save events as JSON lines in `data/logs/`
+- [x] Detect simple recurring patterns (same category / keyword frequency)
+- [x] Generate a weekly plain-text report saved to `reports/weekly/`
+
+
 ---
 
 ## How It Works
