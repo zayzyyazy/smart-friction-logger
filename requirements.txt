@@ -1,0 +1,4 @@
+# Smart Friction Logger — dependencies
+
+openai          # OpenAI API client (v1+)
+python-dotenv   # Load OPENAI_API_KEY from a local .env file
