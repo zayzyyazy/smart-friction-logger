@@ -1,43 +1,49 @@
 # Smart Friction Logger
 
-A local CLI tool for tracking and understanding the small friction events that slow down your workflow — slow pipelines, repeated blockers, confusing tooling. Log them fast, spot the patterns, and get AI-generated suggestions on what to fix.
+A CLI tool I built to log the small things that slow me down — slow builds, repeated MacBook annoyances, confusing uni workflows, tooling that never quite works. You describe what happened, it uses OpenAI to structure the entry, and at the end of the week you can run a report to see what kept coming up.
 
 ---
 
 ## Why I Built It
 
-I kept running into the same annoyances at the terminal and losing track of what was actually costing me the most time. I wanted a way to log these moments quickly — without opening a browser or switching apps — and then see a weekly summary of what kept coming up. This project is that tool.
+I kept hitting the same friction — long build times, things breaking in the same way, uni tasks that took longer than they should — and I had no record of any of it. I wanted something I could log from the terminal in ten seconds without switching apps, and then look back on to see what was actually worth fixing. So I built it.
 
 ---
 
-## Core Features
+## What It Does
 
-- **Quick logging** — describe a friction event in plain text; OpenAI structures it into a title, description, category, and severity score (1–5)
-- **Local JSONL storage** — every event is saved as a JSON line in `data/logs/`; no database, no cloud
-- **Pattern detection** — identifies recurring categories and frequently mentioned keywords across your logs
-- **Weekly reports** — generates a Markdown report saved to `reports/weekly/`, including an AI-written insights section with suggested actions
-- **Flexible CLI** — interactive menu or direct flags (`--log`, `--patterns`, `--report`)
-- **Terminal aliases** — `frictionlog`, `frictionreport`, `frictionpatterns` for quick access from anywhere
-- **Mac Automator launcher** — log events without opening a terminal window
+- **Logs friction events** — you describe what happened in plain text; it uses OpenAI to turn that into a structured entry with a title, category, description, and severity score (1–5)
+- **Saves everything locally** — entries are stored as JSON lines in `data/logs/`; no database, no accounts
+- **Detects patterns** — reads your logs and surfaces which categories and keywords keep showing up
+- **Generates weekly reports** — writes a Markdown file to `reports/weekly/` with a breakdown of what came up most and an AI-generated section suggesting what to actually do about it
+- **Works from the terminal** — interactive menu or direct flags (`--log`, `--patterns`, `--report`)
+- **Terminal aliases** — `frictionlog`, `frictionreport`, `frictionpatterns` so you can run it from anywhere
+- **Mac Automator launcher** — optional shortcut to log without opening a terminal at all
 
-> Logs and generated reports are kept local and are excluded from Git via `.gitignore`.
-
-- [x] Project scaffold (folders, modules, entry point)
-- [x] Log a friction event interactively (category, description, severity, timestamp)
-- [x] Save events as JSON lines in `data/logs/`
-- [x] Detect simple recurring patterns (same category / keyword frequency)
-- [x] Generate a weekly plain-text report saved to `reports/weekly/`
-
+> Logs and reports are gitignored and stay local.
 
 ---
 
 ## How It Works
 
-1. You run `python3 main.py --log` (or use the `frictionlog` alias)
-2. You pick a category and describe the friction in plain text
-3. The input is sent to the OpenAI API, which returns a structured record: title, description, category, and severity
-4. The record is saved as a line in `data/logs/friction_log.jsonl`
-5. When you run `--report`, the app reads all logs, analyses patterns, sends a summary to OpenAI for insights, and writes a weekly Markdown report to `reports/weekly/`
+1. Run `python3 main.py --log` (or `frictionlog`)
+2. Pick a category and describe the friction in plain text
+3. The input goes to the OpenAI API, which returns a structured record: title, description, category, and severity
+4. The record is appended to `data/logs/friction_log.jsonl`
+5. When you run `--report`, it reads all your logs, finds patterns, sends a summary to OpenAI, and writes a weekly Markdown report to `reports/weekly/`
+
+---
+
+## Example Output
+
+Logging a friction event:
+
+![Logging a friction event](assets/logging.png)
+
+Weekly report output:
+
+![Report page 1](assets/report1.png)
+![Report page 2](assets/report2.png)
 
 ---
 
@@ -102,7 +108,7 @@ python3 main.py
 ## Example Commands
 
 ```bash
-# Interactive menu (choose log / patterns / report)
+# Interactive menu
 python3 main.py
 
 # Log a new friction event
@@ -115,7 +121,7 @@ python3 main.py --patterns
 python3 main.py --report
 ```
 
-If you set up the terminal aliases from `COMMANDS.md`:
+With terminal aliases from `COMMANDS.md`:
 
 ```bash
 frictionlog        # log a new event
@@ -158,11 +164,11 @@ The saved report includes a frequency table of categories, a keyword summary, an
 
 ## What I Learned
 
-- How to use the OpenAI API for structured data extraction from free-form text
-- How to design a CLI tool with both an interactive menu and direct flag-based entry points
-- How to store and query append-only JSONL logs without a database
-- How to keep personal data (logs, reports) out of version control with `.gitignore`
-- How to wire up terminal aliases and a Mac Automator launcher for frictionless access to a tool I actually use daily
+- How the OpenAI API handles structured extraction from unstructured text — and where it needs more guidance
+- What it actually takes to design a CLI that works both interactively and with flags
+- Why append-only JSONL is a reasonable choice for a local log file without needing a database
+- How to keep personal data out of version control properly, not just in theory
+- That building a tool you actually use daily is a very different experience from building something for a spec
 
 ---
 
